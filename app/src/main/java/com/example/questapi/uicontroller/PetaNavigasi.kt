@@ -8,28 +8,42 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.questapi.uicontroller.route.DestinasiEntry
 import com.example.questapi.uicontroller.route.DestinasiHome
+import com.example.questapi.view.EntrySiswaScreen
+import com.example.questapi.view.HomeScreen
 
 @Composable
-fun DataSiswaApp(navController: NavHostController =
-                     rememberNavController(), modifier: Modifier
+fun DataSiswaApp(
+    navController: NavHostController = rememberNavController(),
+    modifier: Modifier = Modifier
 ){
-    HostNavigasi(navController = navController)
+    HostNavigasi(navController = navController, modifier = modifier)
 }
+
 @Composable
 fun HostNavigasi(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ){
-    NavHost(navController = navController, startDestination =
-        DestinasiHome.route, modifier = Modifier ){
+    NavHost(
+        navController = navController,
+        startDestination = DestinasiHome.route,
+        modifier = modifier
+    ) {
         composable(DestinasiHome.route) {
-            HomeScreen(navigateToItemEntry = { navController.navigate
-                (DestinasiEntry.route) },
+            HomeScreen(
+                navigateToItemEntry = {
+                    navController.navigate(DestinasiEntry.route)
+                }
             )
         }
-        composable(DestinasiEntry.route){
-            EntrySiswaScreen(navigateBack = { navController.navigate
-                (DestinasiHome.route) })
+        composable(DestinasiEntry.route) {
+            EntrySiswaScreen(
+                navigateBack = {
+                    navController.navigate(DestinasiHome.route) {
+                        popUpTo(DestinasiHome.route) { inclusive = true }
+                    }
+                }
+            )
         }
     }
 }

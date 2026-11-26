@@ -26,6 +26,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.questapi.R
 import com.example.questapi.uicontroller.route.DestinasiEntry
+import com.example.questapi.viewmodel.DetailSiswa
+import com.example.questapi.viewmodel.EntryViewModel
+import com.example.questapi.viewmodel.PenyediaViewModel
+import com.example.questapi.viewmodel.UIStateSiswa
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,7 +71,7 @@ fun EntrySiswaScreen(
 
 @Composable
 fun EntrySiswaBody(
-    uiStateSiswa: UiStateSiswa,
+    uiStateSiswa: UIStateSiswa,
     onSiswaValueChange: (DetailSiswa) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier

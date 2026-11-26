@@ -1,12 +1,9 @@
 package com.example.questapi.viewmodel
 
-import android.R.attr.id
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.mydatasiswa.modeldata.DataSiswa
-import com.example.mydatasiswa.repositori.RepositoryDataSiswa
 import com.example.questapi.modeldata.DataSiswa
 import com.example.questapi.repositori.RepositoryDataSiswa
 import retrofit2.Response
@@ -24,7 +21,7 @@ class EntryViewModel(private val repositoryDataSiswa: RepositoryDataSiswa): View
         }
     }
 
-    fun updateUIState(detailSiswa: DetailSiswa) {
+    fun updateUiState(detailSiswa: DetailSiswa) {
         uiStateSiswa =
             UIStateSiswa(detailSiswa = detailSiswa, isEntryValid =
                 validasiInput(detailSiswa))

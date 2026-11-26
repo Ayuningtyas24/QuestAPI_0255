@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -32,14 +36,15 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.questapi.R
 import com.example.questapi.modeldata.DataSiswa
 import com.example.questapi.uicontroller.route.DestinasiHome
+import com.example.questapi.viewmodel.HomeViewModel
+import com.example.questapi.viewmodel.PenyediaViewModel
+import com.example.questapi.viewmodel.StatusUiSiswa
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    //edit 1.1 : tambahkan parameter navigateToItemEntry
     navigateToItemEntry: () -> Unit,
-
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory =
         PenyediaViewModel.Factory)
 ) {
@@ -57,7 +62,6 @@ fun HomeScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                //edit 1.2 : event onClick
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(dimensionResource(id =
@@ -85,7 +89,6 @@ fun HomeScreen(
 @Composable
 fun HomeBody(
     statusUiSiswa: StatusUiSiswa,
-    //edit 2.3 tambahkan parameter onSiswaClick
     retryAction: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -95,12 +98,11 @@ fun HomeBody(
     ) {
         when(statusUiSiswa) {
             is StatusUiSiswa.Loading -> LoadingScreen()
-            //edit 2.5 tambahkan event onSiswaClick
             is StatusUiSiswa.Success -> DataSiswa(
-                statusUiSiswa.data,
+                itemSiswa = statusUiSiswa.data,
                 onSiswaClick = {}
             )
-            is StatusUiSiswa.Error -> RetryScreen(
+            is StatusUiSiswa.Error -> ErrorScreen(
                 retryAction,
                 modifier.fillMaxSize()
             )
@@ -112,7 +114,7 @@ fun HomeBody(
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Image(
         modifier = modifier.size(200.dp),
-        painter = painterResource(R.drawable.loading_img),
+        painter = painterResource(R.drawable.ic_launcher_foreground),
         contentDescription = stringResource(R.string.loading)
     )
 }
@@ -138,9 +140,7 @@ fun ErrorScreen(
 @Composable
 fun DataSiswa(
     itemSiswa : List<DataSiswa>,
-    //edit 2.1 tambahkan parameter onSiswaClick
     onSiswaClick: () -> Unit,
-
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
@@ -150,7 +150,6 @@ fun DataSiswa(
                 modifier = Modifier
                     .padding(dimensionResource(id = R.dimen
                         .padding_small))
-                //edit 2.2 jadikan itemsiswa menjadi clickable
             )
         }
     }

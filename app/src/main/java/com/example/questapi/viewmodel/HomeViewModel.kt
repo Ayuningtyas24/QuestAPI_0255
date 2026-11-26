@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mydatasiswa.modeldata.DataSiswa
-import com.example.mydatasiswa.repositori.RepositoryDataSiswa
 import com.example.questapi.modeldata.DataSiswa
 import com.example.questapi.repositori.RepositoryDataSiswa
 import kotlinx.coroutines.launch
@@ -15,7 +13,9 @@ import java.io.IOException
 
 sealed interface StatusUiSiswa {
     data class Success(val siswa: List<DataSiswa> = listOf()) :
-        StatusUiSiswa
+        StatusUiSiswa {
+        val data: List<DataSiswa> get() = siswa
+    }
     object Error : StatusUiSiswa
     object Loading : StatusUiSiswa
 }
@@ -45,4 +45,6 @@ class HomeViewModel(private val repositoryDataSiswa:
             }
         }
     }
+
+    fun getSiswa() = loadSiswa()
 }
