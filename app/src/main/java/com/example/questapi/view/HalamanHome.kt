@@ -3,6 +3,7 @@ package com.example.questapi.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -150,6 +151,48 @@ fun DataSiswa(
                     .padding(dimensionResource(id = R.dimen
                         .padding_small))
                 //edit 2.2 jadikan itemsiswa menjadi clickable
+            )
+        }
+    }
+}
+
+@Composable
+fun ItemSiswa(
+    siswa: DataSiswa,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        elevation = CardDefaults.cardElevation(defaultElevation = 2
+            .dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(dimensionResource(id = R
+                .dimen.padding_large)),
+            verticalArrangement = Arrangement.spacedBy(
+                dimensionResource(
+                    id = R.dimen.padding_small))
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = siswa.nama,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.Phone,
+                    contentDescription = null,
+                )
+                Text(
+                    text = siswa.telpon,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            Text(
+                text = siswa.alamat,
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
